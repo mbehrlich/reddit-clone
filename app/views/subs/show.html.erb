@@ -1,0 +1,9 @@
+<h3> <%= @sub.title %> </h3>
+<h5> Moderator: <%= link_to @sub.moderator.username, user_url(@sub.moderator) %> </h5>
+<p>
+  <%= @sub.description %>
+</p>
+<% if current_user.id == @sub.moderator_id %>
+  <%= button_to "Edit sub", edit_sub_url(@sub), method: "get" %>
+  <%= button_to "Delete sub", sub_url(@sub), method: "delete" %>
+<% end %>

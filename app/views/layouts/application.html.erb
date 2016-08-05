@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RedditClone</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+
+<div id="errors">
+  <% if flash[:errors] %>
+    <ul>
+      <% flash[:errors].each do |error| %>
+        <li> <%= error %> </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<header>
+  <h1> <%= link_to "Bluedit", root_url %> </h1>
+  <% if current_user %>
+    <h1> <%= current_user.username %> </h1>
+    <%= link_to "profile", user_url(current_user) %>
+    <%= link_to "logout", session_url(current_user), method: "delete" %>
+  <% else %>
+    <%= link_to "sign up", new_user_url %>
+    <%= link_to "login", new_session_url %>
+  <% end %>
+</header>
+
+<%= yield %>
+
+</body>
+</html>
