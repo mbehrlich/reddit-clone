@@ -1,8 +1,45 @@
 <h3> <%= @sub.title %> </h3>
 <h5> Moderator: <%= link_to @sub.moderator.username, user_url(@sub.moderator) %> </h5>
+<hr>
 <p>
   <%= @sub.description %>
 </p>
+<hr>
+<h5>posts</h5>
+<table>
+  <thead>
+    <tr>
+      <th>
+        title
+      </th>
+      <th>
+        author
+      </th>
+      <th>
+        date
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sub.posts.each do |post| %>
+      <tr>
+        <td>
+          <%= link_to post.title, post_url(post) %>
+        </td>
+        <td>
+          <%= link_to post.author.username, user_url(post.author) %>
+        </td>
+        <td>
+          <%= post.created_at %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<hr>
+<% if current_user %>
+  <%= button_to "Make a new post", new_sub_post_url(@sub), method: "get" %>
+<% end %>
 <% if current_user.id == @sub.moderator_id %>
   <%= button_to "Edit sub", edit_sub_url(@sub), method: "get" %>
   <%= button_to "Delete sub", sub_url(@sub), method: "delete" %>

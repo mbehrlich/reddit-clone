@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :subs
+  resources :subs do
+    resources :posts, only: [:new]
+  end
+
+  resources :posts, only: [:show, :create, :edit, :update, :destroy]
 
   root to: "subs#index"
 

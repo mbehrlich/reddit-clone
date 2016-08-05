@@ -1,0 +1,21 @@
+<form action="<%= action == :new ? posts_url : post_url(post) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+  <input type="hidden" name="post[sub_id]" value="<%= post.sub_id %>" >
+  <label>
+    Title:
+    <input type="text" name="post[title]" value="<%= post.title %>">
+  </label>
+  <label>
+    URL:
+    <input type="text" name="post[url]" value="<%= post.url %>">
+  </label>
+  <label>
+    Content:
+    <textarea name="post[content]" rows="8" cols="40"><%= post.content %></textarea>
+  </label>
+  <input type="submit" value="Submit">
+
+</form>

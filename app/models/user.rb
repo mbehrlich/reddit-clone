@@ -8,6 +8,16 @@ class User < ActiveRecord::Base
   validates :password_digest, presence: { message: "Password cannot be blank" }
   validates :password, length: { minimum: 8, allow_nil: true }
 
+  has_many :moderated_subs,
+    primary_key: :id,
+    foreign_key: :moderator_id,
+    class_name: :Sub
+
+  has_many :posts,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: :Post
+
   def password=(password)
     pw_dig = BCrypt::Password.create(password)
     self.password_digest = pw_dig
