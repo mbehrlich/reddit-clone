@@ -9,9 +9,6 @@
         title
       </th>
       <th>
-        sub
-      </th>
-      <th>
         date
       </th>
     </tr>
@@ -21,9 +18,6 @@
       <tr>
         <td>
           <%= link_to post.title, post_url(post) %>
-        </td>
-        <td>
-          <%= link_to post.sub.title, sub_url(post.sub) %>
         </td>
         <td>
           <%= post.created_at %>

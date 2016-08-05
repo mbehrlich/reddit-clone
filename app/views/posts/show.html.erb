@@ -1,9 +1,7 @@
-<h3> <%= link_to @post.sub.title, sub_url(@post.sub) %> </h3>
-<h5> Moderator: <%= link_to @post.sub.moderator.username, user_url(@post.sub.moderator) %> </h5>
-<hr>
-<p>
-  <%= link_to @post.title, @post.url %>
-</p>
+
+<h3>
+  <%= link_to @post.title, "http://" + @post.url %>
+</h3>
 <p>
   Author: <%= link_to @post.author.username, user_url(@post.author) %>
 </p>
@@ -12,10 +10,16 @@
   <%= @post.content %>
 </p>
 <hr>
-
+<h5>Comments</h5>
+<ul>
+  <% @all_comments[nil].each do |comment| %>
+    <%= render 'comments/children', comment: comment, all_comments: @all_comments %>
+  <% end %>
+</ul>
+<% if current_user %>
+  <%= button_to "Create a comment", new_post_comment_url(@post), method: "get" %>
+<% end %>
 <% if current_user.id == @post.author_id %>
   <%= button_to "Edit post", edit_post_url(@post), method: "get" %>
-<% end %>
-<% if current_user.id == @post.author_id || current_user.id == @post.sub.moderator_id %>
   <%= button_to "Delete post", post_url(@post), method: "delete" %>
 <% end %>

@@ -1,0 +1,17 @@
+<li>
+  <hr>
+  <p>
+    <%= link_to comment.author.username, user_url(comment.author) %> <%= comment.created_at %>
+  </p>
+  <p>
+    <%= comment.content %>
+  </p>
+  <p>
+    <%= link_to "comments", comment_url(comment) %>
+  </p>
+  <ul>
+    <% all_comments[comment.id].each do |child| %>
+      <%= render "comments/children", comment: child, all_comments: all_comments %>
+    <% end %>
+  </ul>
+</li>

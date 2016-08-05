@@ -1,11 +1,11 @@
 class PostsController < ApplicationController
 
   before_action :require_signin, only: [:new, :create, :edit, :update, :destroy]
-  before_action :require_author, only: [:edit, :update]
-  before_action :require_author_or_mod, only: [:destroy]
+  before_action :require_author, only: [:edit, :update, :destroy]
 
   def show
     @post = Post.find_by(id: params[:id])
+    @all_comments = @post.comments_by_parent_id
     if @post
       render :show
     else
@@ -16,7 +16,9 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new(sub_id: params[:sub_id])
+    @post = Post.new
+    @current_sub = params[:sub_id]
+    @subs = Sub.all
   end
 
   def create
@@ -27,12 +29,15 @@ class PostsController < ApplicationController
     else
       flash.now[:errors] ||= []
       flash.now[:errors] += @post.errors.full_messages
+      @current_sub = params[:sub_id].to_i
+      @subs = Sub.all
       render :new
     end
   end
 
   def edit
     @post = Post.find_by(id: params[:id])
+    @subs = Sub.all
     if @post
       render :edit
     else
@@ -50,6 +55,7 @@ class PostsController < ApplicationController
       else
         flash.now[:errors] ||= []
         flash.now[:errors] += @post.errors.full_messages
+        @subs = Sub.all
         render :edit
       end
     else
@@ -77,7 +83,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+    params.require(:post).permit(:title, :url, :content, sub_ids: [])
   end
 
   def require_author
@@ -89,6 +95,7 @@ class PostsController < ApplicationController
     end
   end
 
+  # Deprecated
   def require_author_or_mod
     @post = Post.find_by(id: params[:id])
     unless @post.author_id == current_user.id || @post.sub.moderator == current_user.id
