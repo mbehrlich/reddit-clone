@@ -24,4 +24,6 @@ class Post < ActiveRecord::Base
     comments_hash
   end
 
+  has_many :votes, as: :votable
+
 end

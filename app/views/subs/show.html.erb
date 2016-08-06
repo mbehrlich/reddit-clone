@@ -10,6 +10,9 @@
   <thead>
     <tr>
       <th>
+        vote
+      </th>
+      <th>
         title
       </th>
       <th>
@@ -23,6 +26,20 @@
   <tbody>
     <% @sub.posts.each do |post| %>
       <tr>
+        <td>
+          <form action="<%= post_upvote_url(post.id) %>" method="post">
+            <input type="hidden" name="authenticity_token" value=" <%= form_authenticity_token %>">
+            <input type="hidden" name="vote[votable_id]" value="<%= post.id %>">
+            <input type="hidden" name="vote[votable_type]" value="Post">
+            <input type="submit" value="/\">
+          </form>
+          <form action="<%= post_downvote_url(post.id) %>" method="post">
+            <input type="hidden" name="authenticity_token" value=" <%= form_authenticity_token %>">
+            <input type="hidden" name="vote[votable_id]" value="<%= post.id %>">
+            <input type="hidden" name="vote[votable_type]" value="Post">
+            <input type="submit" value="\/">
+          </form>
+        </td>
         <td>
           <%= link_to post.title, post_url(post) %>
         </td>
