@@ -1,0 +1,29 @@
+<li>
+  <hr>
+  <p>
+    <%= link_to comment.author.username, user_url(comment.author) %> <%= comment.created_at %>
+  </p>
+  <p>
+    <form action="<%= comment_upvote_url(comment.id) %>" method="post">
+      <input type="hidden" name="authenticity_token" value=" <%= form_authenticity_token %>">
+      <input type="hidden" name="vote[votable_id]" value="<%= comment.id %>">
+      <input type="hidden" name="vote[votable_type]" value="Commment">
+      <input type="submit" value="/\">
+    </form>
+    <form action="<%= comment_downvote_url(comment.id) %>" method="post">
+      <input type="hidden" name="authenticity_token" value=" <%= form_authenticity_token %>">
+      <input type="hidden" name="vote[votable_id]" value="<%= comment.id %>">
+      <input type="hidden" name="vote[votable_type]" value="Comment">
+      <input type="submit" value="\/">
+    </form>
+    <%= comment.content %>
+  </p>
+  <p>
+    <%= link_to "comments", comment_url(comment) %>
+  </p>
+  <ul>
+    <% all_comments[comment.id].each do |child| %>
+      <%= render "comments/children", comment: child, all_comments: all_comments %>
+    <% end %>
+  </ul>
+</li>

@@ -1,0 +1,39 @@
+<h3> <%= @user.username %> </h3>
+<hr>
+
+<h5>posts</h5>
+<table>
+  <thead>
+    <tr>
+      <th>
+        title
+      </th>
+      <th>
+        date
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.posts.each do |post| %>
+      <tr>
+        <td>
+          <%= link_to post.title, post_url(post) %>
+        </td>
+        <td>
+          <%= post.created_at %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<hr>
+
+<h5>subs</h5>
+<ul>
+  <% @user.moderated_subs.each do |sub| %>
+    <li> <%= link_to sub.title, sub_url(sub) %> </li>
+  <% end %>
+</ul>
+<hr>
+
+<%= button_to "delete user", user_url(@user), method: "delete" %>

@@ -1,0 +1,21 @@
+
+<h3>
+  <%= link_to @comment.post.title, post_url(@comment.post) %>
+</h3>
+<p>
+  Author: <%= link_to @comment.author.username, user_url(@comment.author) %> <%= @comment.created_at %>
+</p>
+<hr>
+<p>
+  <%= @comment.content %>
+</p>
+<hr>
+<h5>Comments</h5>
+<ul>
+  <% @all_comments[@comment.id].each do |comment| %>
+    <%= render "children", comment: comment, all_comments: @all_comments %>
+  <% end %>
+</ul>
+<% if current_user %>
+  <%= render "form", comment: @comment %>
+<% end %>

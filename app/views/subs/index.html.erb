@@ -1,0 +1,32 @@
+<h3>All subs</h3>
+<table>
+  <thead>
+    <tr>
+      <th>
+        Sub
+      </th>
+      <th>
+        Description
+      </th>
+      <th>
+        Moderator
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subs.each do |sub| %>
+      <tr>
+        <td>
+          <%= link_to sub.title, sub_url(sub) %>
+        </td>
+        <td>
+          <%= sub.description %>
+        </td>
+        <td>
+          <%= sub.moderator.username %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "Create sub", new_sub_url if current_user %>
