@@ -18,7 +18,15 @@ class User < ActiveRecord::Base
     foreign_key: :author_id,
     class_name: :Post
 
+  has_many :comments,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: :Comment
+
+  has_many :votes
+
   def password=(password)
+    @password = password
     pw_dig = BCrypt::Password.create(password)
     self.password_digest = pw_dig
   end
