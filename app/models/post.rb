@@ -26,6 +26,7 @@ class Post < ActiveRecord::Base
 
   has_many :votes, as: :votable
 
+
   def score
     vote_sum = 0
     self.votes.each do |vote|
@@ -33,5 +34,6 @@ class Post < ActiveRecord::Base
     end
     vote_sum
   end
+
 
 end

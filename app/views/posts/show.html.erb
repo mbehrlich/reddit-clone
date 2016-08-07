@@ -1,4 +1,5 @@
 <h5> <%= @post.score %> </h5>
+
 <h3>
   <form action="<%= post_upvote_url(@post.id) %>" method="post">
     <input type="hidden" name="authenticity_token" value=" <%= form_authenticity_token %>">
