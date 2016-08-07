@@ -9,6 +9,7 @@ class SubsController < ApplicationController
 
   def show
     @sub = Sub.find_by(id: params[:id])
+    @posts = @sub.posts.sort_by { |post| post.score }.reverse
     if @sub
       render :show
     else

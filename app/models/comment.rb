@@ -21,4 +21,12 @@ class Comment < ActiveRecord::Base
 
   has_many :votes, as: :votable
 
+  def score
+    vote_sum = 0
+    self.votes.each do |vote|
+      vote_sum += vote.value
+    end
+    vote_sum
+  end
+
 end

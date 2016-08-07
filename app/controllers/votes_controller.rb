@@ -1,8 +1,7 @@
 class VotesController < ApplicationController
 
   def upvote
-    @vote = Vote.find_by(vote_params)
-    
+    @vote = Vote.find_by(votable_id: vote_params[:votable_id], votable_type: vote_params[:votable_type], user_id: current_user.id)
     if @vote.nil?
       Vote.create(value: 1, votable_id: vote_params[:votable_id], votable_type: vote_params[:votable_type], user_id: current_user.id)
     else

@@ -1,4 +1,4 @@
-
+<h5> <%= @post.score %> </h5>
 <h3>
   <form action="<%= post_upvote_url(@post.id) %>" method="post">
     <input type="hidden" name="authenticity_token" value=" <%= form_authenticity_token %>">
@@ -24,7 +24,7 @@
 <hr>
 <h5>Comments</h5>
 <ul>
-  <% @all_comments[nil].each do |comment| %>
+  <% @all_comments[nil].sort_by { |comment| comment.score }.reverse.each do |comment| %>
     <%= render 'comments/children', comment: comment, all_comments: @all_comments %>
   <% end %>
 </ul>

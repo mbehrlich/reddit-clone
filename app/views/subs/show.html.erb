@@ -24,9 +24,10 @@
     </tr>
   </thead>
   <tbody>
-    <% @sub.posts.each do |post| %>
+    <% @posts.each do |post| %>
       <tr>
         <td>
+          <h5> <%= post.score %> </h5>
           <form action="<%= post_upvote_url(post.id) %>" method="post">
             <input type="hidden" name="authenticity_token" value=" <%= form_authenticity_token %>">
             <input type="hidden" name="vote[votable_id]" value="<%= post.id %>">
